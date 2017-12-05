@@ -7,6 +7,7 @@ val repeating = Iterator.continually(input.toCharArray)
 def sumWithOffset(offset: Int): Int = {
   val prev = repeating.take(input.length).toList
   val next = repeating.slice(offset, input.length + offset).toList
+
   {
     for ((cur, next) <- prev zip next)
     yield if (cur == next) cur else 0
