@@ -1,13 +1,17 @@
-val input = "1234"
+val input = "123123"
 
 val repeating = Iterator.continually(input.toCharArray)
                 .flatMap(_.toIterable)
                 .map(_.asDigit)
 
-val thrice = repeating.take(input.length * 3).toList
-val thriceNext = repeating.slice(1, input.length * 3 + 1).toList
-
-{
-  for ((cur, next) <- thrice zip thriceNext)
+def sumWithOffset(offset: Int): Int = {
+  val prev = repeating.take(input.length).toList
+  val next = repeating.slice(offset, input.length + offset).toList
+  {
+    for ((cur, next) <- prev zip next)
     yield if (cur == next) cur else 0
-}.slice(input.length, input.length * 2).sum
+  }.sum
+}
+
+sumWithOffset(1)
+sumWithOffset(input.length/2)
